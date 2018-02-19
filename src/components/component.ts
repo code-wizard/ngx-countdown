@@ -21,6 +21,7 @@ export class CountdownComponent implements OnInit, OnChanges, OnDestroy {
     @Input() config: Config;
     @Output() start = new EventEmitter();
     @Output() finished = new EventEmitter();
+    @Output() ticker = new EventEmitter();
     @Output() notify = new EventEmitter();
     @Output() event = new EventEmitter<{ action: string, left: number }>();
 
@@ -194,7 +195,7 @@ export class CountdownComponent implements OnInit, OnChanges, OnDestroy {
         });
 
         me.repaint();
-
+        me.ticker.emit(me.left)
         if (me._notify[me.left]) {
             me.notify.emit(me.left);
             this.callEvent('notify');
